@@ -1,9 +1,11 @@
 from django.db import models
 from django.db.models.fields import CharField
-from django.urls import timezone
+from django.utils import timezone
 
 # Create your models here.
 class DeliverableInfo(models.Model):
+    user_id = models.CharField(max_length=100)
+    user_name = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     git_url = models.URLField()
     category = models.CharField(max_length=100)

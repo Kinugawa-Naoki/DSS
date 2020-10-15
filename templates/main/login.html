@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>ログイン画面</title>
+{% endblock head %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    <div>
+        {{ message }}
+    </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ forms }}
+        <input type="submit" value="ログインする">
+    </form>
+</div>
+{% endblock content %}

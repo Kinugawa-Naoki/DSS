@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>ユーザー登録画面</title>
+{% endblock head %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ forms }}
+        <input type="submit" value="登録する">{{ error }}
+    </form>
+</div>
+{% endblock content %}
