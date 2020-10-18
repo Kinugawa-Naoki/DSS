@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>提出した成果物一覧</title>
+{% endblock head %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    {% for item in list_query %}
+    <p>{{ item.deliverable_name }}</p>
+    <p>{{ item.git_url }}</p>
+    <p>{{ item.category }}</p>
+    <p>{{ item.languages }}</p>
+    <p>{{ item.own_comment }}</p>
+    <p>{{ item.created_dt }}</p>
+    {% endfor %}
+</div>
+{% endblock content %}

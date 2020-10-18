@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ detail_query.deliverable_name }}詳細画面</title>
+{% endblock head %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    <p>{{ detail_query.deliverable_name }}</p>
+    <p>{{ detail_query.git_url }}</p>
+    <p>{{ detail_query.category }}</p>
+    <p>{{ detail_query.languages }}</p>
+    <p>{{ detail_query.own_comment }}</p>
+    <p>{{ detail_query.created_dt }}</p>
+    <!--更新されていない場合は更新日時を表示しない-->
+    {% if detail_query.modified_dt == 'None' %}
+        <p>{{ detail_query.modified_dt }}</p>
+    {% endif %}
+</div>
+{% endblock content %}

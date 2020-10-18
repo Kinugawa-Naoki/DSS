@@ -5,11 +5,10 @@ from django.utils import timezone
 # Create your models here.
 class DeliverableInfo(models.Model):
     user_id = models.CharField(max_length=100)
-    user_name = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
+    deliverable_name = models.CharField(max_length=100)
     git_url = models.URLField()
     category = models.CharField(max_length=100)
     languages = models.CharField(max_length=50)
-    option = models.CharField(max_length=100, null=True, blank=True)
+    own_comment = models.CharField(max_length=100, null=True, blank=True)
     created_dt = models.DateTimeField(default=timezone.now)
     modified_dt = models.DateTimeField(null=True, blank=True)

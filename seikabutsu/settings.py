@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
 
@@ -122,6 +122,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTHENTICATION_BACKENDS = {
-    'djago.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
     'guardian.backends.ObjectPermissionBackend',
 }

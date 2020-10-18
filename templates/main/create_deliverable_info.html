@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>成果物を登録する</title>
+<title>成果物登録画面</title>
 {% endblock head %}
 
 {% block header %}
 {% endblock header %}
 
 {% block content %}
-    <form action="" enctype="multipart/form-data">
+<div class='container'>
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ forms.as_p }}
-        <input type="submit" value="投稿する">
+        <input type="submit" class="btn btn-secondary" value="投稿する">
     </form>
+</div>
 {% endblock content %}
