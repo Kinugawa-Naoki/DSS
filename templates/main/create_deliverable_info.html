@@ -9,10 +9,20 @@
 
 {% block content %}
 <div class='container'>
+    <div class="alert alert-success" role="alert">
+        成果物情報　登録画面
+    </div>
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ forms.as_p }}
-        <input type="submit" class="btn btn-secondary" value="投稿する">
+        {% for item in forms %}
+            <div class="mt-4">
+                {{ item.label }}（必須）{{ item }}
+            </div>
+        {% endfor %}
+        <div class="mt-3">
+            <input type="submit" class="btn btn-secondary" value="投稿する">
+        </div>
     </form>
+    <div class="mt-5"></div>
 </div>
 {% endblock content %}

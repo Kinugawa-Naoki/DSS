@@ -1,58 +1,22 @@
-from django.core.checks import messages
-from django.db import models
+from django.http import request
 from django.shortcuts import redirect, render
-from .forms import CreateDeliverableInfo, SignupLoginForm
-from .models import DeliverableInfo
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from .forms import CreateDeliverableInfo
+from .models import DeliverableInfo
 from datetime import datetime
 
-# Create
+# メインページ
+def indexfunc(request):
+    return render(request, 'index.html', {'somedata':''})
 
-# サインアップ
-def signupfunc(request):
-    forms = SignupLoginForm()
-    if request.method == 'POST':
-        user_id = request.POST['user_id']
-        user_pass = request.POST['user_pass']
-        if len(user_id) > 100:
-            return render(request, 'signup.html', {'error':'ユーザーIDは100文字以下にして下さい'})
-        try:
-            User.objects.get(username=user_id)
-            return render(request, 'signup.html', {'error':'このユーザーIDでは登録できません', 'form':forms})
-        except:
-            User.objects.create_user(user_id, '', user_pass)
-            return render(request, 'login.html', {'message':'ユーザー登録が完了しました', 'form':forms})
-    else:
-        print(forms)
-        return render(request, 'signup.html', {'forms':forms})
 
-# ログイン画面
-def loginfunc(request):
-    forms = SignupLoginForm()
-    if request.method == 'POST':
-        user_id = request.POST['user_id']
-        user_pass = request.POST['user_pass']
-        user = authenticate(username=user_id, password=user_pass)
-        # ユーザーが存在するか確認する
-        if user is not None:
-            login(request, user)
-            return redirect('login')
-        else:
-            return render(request, 'login.html', {'error':'ログインに失敗しました。', 'forms':forms})
-    else:
-        return render(request, 'login.html', {'forms':forms})
-
-# ここからログインが必要
-@login_required
-
-# ログアウト
-def logoutfunc(request):
-    logout(request)
+# 処理成功画面
+def process_successfunc(request):
     return redirect('login')
 
+# ここからログインが必要
 # 成果物情報登録
+@login_required
 def createfunc(request):
     form = CreateDeliverableInfo()
     if request.method == 'POST':
@@ -60,9 +24,15 @@ def createfunc(request):
         deliverable_name = request.POST['deliverable_name']
         git_url = request.POST['git_url']
         category = request.POST['category']
-        languages = request.POST['languages']
+        languages_list = request.POST.getlist('languages')
+        languages = ''
+        for language in languages_list:
+            languages = languages + language + ','
         own_comment = request.POST['own_comment']
         created_dt = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S')
+        print(languages)
+        if languages == '':
+            return render(request, 'create_deliverable_info.html', {'forms':form, 'message':'どれか一つを必ず選択してください。'})
         models = DeliverableInfo(
             user_id = user_id,
             deliverable_name = deliverable_name,
@@ -73,18 +43,23 @@ def createfunc(request):
             created_dt = created_dt
         )
         models.save()
-        return render(request, 'deliverable_list.html', {'message':'登録が完了しました。'})
+        return render(request, 'deliverable_list.html', {'message':'成果物の登録'})
     else:
         return render(request, 'create_deliverable_info.html', {'forms':form})
 
 # 投稿した成果物「一覧のリスト」を見る
+@login_required
 def deliverable_listfunc(request):
     user_id = request.user
     list_query = DeliverableInfo.objects.filter(user_id__iexact=user_id).all()
     return render(request, 'deliverable_list.html', {'list_query':list_query})
 
 # 投稿した成果物を見る
+@login_required
 def deliverable_detailfunc(request, pk):
-    username = request.user
-    detail_query = DeliverableInfo.objects.filter(user_id__iexact=username).get(pk=pk)
-    return render(request, 'deliverable_detail.html', {'detail_query':detail_query})
+    user_id = request.user
+    try:
+        detail_query = DeliverableInfo.objects.filter(user_id__iexact=user_id).get(pk=pk)
+        return render(request, 'deliverable_detail.html', {'detail_query':detail_query})
+    except:
+        return redirect('deliverable_list')

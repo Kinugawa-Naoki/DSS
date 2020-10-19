@@ -9,13 +9,27 @@
 
 {% block content %}
 <div class="container">
-    <div>
-        {{ message }}
+    <div class="mx-auto" style="width: 200px;">
+        <h3>ログインページ</h3>
     </div>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ forms }}
-        <input type="submit" value="ログインする">
-    </form>
+    <div class="mt-4">
+        <div class="mx-auto" style="width: 300px;">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ forms.user_id.label }}
+                {{ forms.user_id }}
+                <div class="mt-3">
+                    <b class="text-danger">{{ ID_Error }}</b>
+                </div>
+                {{ forms.user_pass.label }}
+                {{ forms.user_pass }}
+                <div class="text-center mt-3">
+                    <input type="submit" class="btn btn-outline-danger" width="200" value="ログインする">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+
 {% endblock content %}

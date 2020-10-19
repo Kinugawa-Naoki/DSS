@@ -10,12 +10,28 @@
 {% block content %}
 <div class="container">
     {% for item in list_query %}
-    <p>{{ item.deliverable_name }}</p>
-    <p>{{ item.git_url }}</p>
-    <p>{{ item.category }}</p>
-    <p>{{ item.languages }}</p>
-    <p>{{ item.own_comment }}</p>
-    <p>{{ item.created_dt }}</p>
+    <div class="mt-5">
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ item.deliverable_name }}</h5>
+              <a href="#" class="btn btn-primary">詳細画面</a>
+            </div>
+        </div>
+    </div>
     {% endfor %}
 </div>
 {% endblock content %}
+
+
+
+<!--
+    まだ作成途中
+            <div class="mt-5">
+            <p>{{ item.deliverable_name }}</p>
+            <p>{{ item.git_url }}</p>
+            <p>{{ item.category }}</p>
+            <p>{{ item.languages }}</p>
+            <p>{{ item.own_comment }}</p>
+            <p>{{ item.created_dt }}</p>
+        </div>
+-->

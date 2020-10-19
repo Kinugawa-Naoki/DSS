@@ -12,3 +12,6 @@ class DeliverableInfo(models.Model):
     own_comment = models.CharField(max_length=100, null=True, blank=True)
     created_dt = models.DateTimeField(default=timezone.now)
     modified_dt = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.deliverable_name

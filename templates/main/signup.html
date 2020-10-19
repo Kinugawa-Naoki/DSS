@@ -4,18 +4,29 @@
 <title>ユーザー登録画面</title>
 {% endblock head %}
 
-{% block header %}
-{% endblock header %}
-
 {% block content %}
-<div class="container">
-    <div>
-        {{ message }}
+<div class="mt-5">
+    <div class="mx-auto" style="width: 200px;">
+        <h3>ユーザ登録画面</h3>
     </div>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ forms.as_p }}
-        <input type="submit" value="登録する">
-    </form>
+    <div class="mt-4">
+        <div class="mx-auto" style="width: 300px;">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ forms.user_id.label }}
+                {{ forms.user_id }}
+                <div>
+                    <p class="text-danger">{{ ID_Error }}</p>
+                </div>
+                {{ forms.user_pass.label }}
+                {{ forms.user_pass }}
+                <div class="text-center mt-3">
+                    <input type="submit" class="btn btn-outline-success" width="200" value="ユーザー登録する">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+
 {% endblock content %}

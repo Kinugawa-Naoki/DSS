@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>{{ message }}完了画面</title>
+    <!--　ログアウト完了時　-->
+    {% if message == 'ログアウト'%}
+    <!--　5秒待機してからログインページへ　-->
+    <meta http-equiv="Refresh" content="5;URL={% url 'login' %}">
+    {% endif %}
+
+    <!--　ユーザー登録　-->
+    {% if message == 'ユーザー登録'%}
+    <!--　10秒待機してからログインページへ　-->
+    <meta http-equiv="Refresh" content="10;URL={% url 'login' %}">
+    {% endif %}
+{% endblock head %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    <div class="alert alert-info" role="alert">
+        <h2>"{{ message }}"　が完了しました。</h2>
+    </div>
+    <hr>
+    <!--　ユーザー登録時　-->
+    {% if message == 'ユーザー登録' %}
+        <p>ユーザー登録していただきありがとうございます</p>
+        <p>10秒後にログインページに自動的にジャンプします。</p>
+    {% endif %}
+    <!--　ログアウト時　-->
+    {% if message == 'ログアウト' %}
+        <p>5秒後にログインページに自動的にジャンプします。</p>
+    {% endif %}
+        <p>ページが切り替わらない場合は、<a href="{% url 'login' %}">ここをクリック</a>してください。</p>
+    <hr>
+</div>
+{% endblock content %}
