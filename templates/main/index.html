@@ -1,12 +1,47 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>成果物共有サイト</title>
+<title>成果物共有サイト|メインページ</title>
 {% endblock head %}
 
 {% block header %}
 {% endblock header %}
 
 {% block content %}
-<p>aaaa</p>
+<div class="container">
+    <div class="text-right mt-5">
+        <a class="btn btn-info" href="{% url 'create' %}" role="button">成果物情報を登録する</a>
+    </div>
+    {% if list_query == 'None' %}
+    <!--　成果物が登録されていない場合　-->
+        <div class="mt-5">
+            <div class="card">
+                <div class="card-body">
+                <b class="text-danger">成果物が登録されていません。<br>右上の登録ボタンから成果物を登録してください。</b>
+                </div>
+            </div>
+        </div>
+    {% else %}
+    <!--　成果物が登録されている場合　-->
+        {% for item in list_query %}
+        <div class="mt-5">
+            <div class="card">
+                <div class="card-body">
+                <h4 class="card-title text-secondary">{{forloop.counter}}. {{ item.deliverable_name }}</h4>
+                <hr>
+                <div>
+                    <a href="{% url 'deliverable_detail' item.pk %}" class="btn btn-outline-info">詳細情報</a>
+                    <p><br>作者：{{ item.user_id }}</p>
+                    <p>参考になった：</p>
+                    <p>コメント数：</p>
+                </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
 {% endblock content %}
+
+
+

@@ -3,25 +3,25 @@ from datetime import datetime
 
 class CreateDeliverableInfo(forms.Form):
     deliverable_name = forms.CharField(
+        label='成果物名',
         widget=forms.TextInput(attrs={'class':'form-control'}),
         max_length=100,
-        label='成果物名 ',
-        required=True
+        required=True,
     )
     git_url = forms.URLField(
+        label='Git URL',
         widget=forms.TextInput(attrs={'class':'form-control'}),
-        label='Git URL ',
-        required=True
+        required=True,
     )
     category = forms.CharField(
+        label='カテゴリー',
         widget=forms.TextInput(attrs={'class':'form-control'}),
         max_length=100,
-        label='カテゴリー ',
-        required=True
+        required=True,
     )
     lang_choice = [
         ('C/C++', 'C/C++'),
-        ('python3','python3'),
+        ('Python3','Python3'),
         ('JavaScript','JavaScript'),
         ('SQL','SQL'),
         ('C#','C#'),
@@ -31,14 +31,27 @@ class CreateDeliverableInfo(forms.Form):
         ('その他','その他')
     ]
     languages = forms.MultipleChoiceField(
-        label='使用言語 ',
+        label='使用言語',
         widget=forms.CheckboxSelectMultiple(),
         choices=lang_choice,
-        required=True
+        required=True,
     )
     own_comment = forms.CharField(
+        label='追記情報',
         widget=forms.Textarea(attrs={'class':'form-control'}),
         max_length=100,
-        label='追記情報 ',
-        required=False
+        required=False,
+    )
+    non_display = forms.BooleanField(
+        label='チェックを入れると他の人には公開されません',
+        required=False,
+    )
+
+# 評価コメント
+class Comment(forms.Form):
+    comment = forms.CharField(
+        label='コメント投稿欄',
+        widget=forms.Textarea(attrs={'class':'form-control'}),
+        max_length=500,
+        required=True
     )

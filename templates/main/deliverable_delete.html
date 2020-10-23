@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ detail_query.deliverable_name }}削除画面</title>
+{% endblock head %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    <div class="alert alert-success" role="alert">
+        {{ detail_query.deliverable_name }} 詳細情報
+    </div>
+    <div class="container">
+    <p>成果物名：{{ detail_query.deliverable_name }}</p>
+    <p>Git URL：{{ detail_query.git_url }}</p>
+    <p>カテゴリー：{{ detail_query.category }}</p>
+    <p>使用言語：{{ detail_query.languages }}</p>
+    <p>追記情報：{{ detail_query.own_comment }}</p>
+    <p>作成日時：{{ detail_query.created_dt|date:'Y-m-d　H時i分s秒' }}</p>
+    <!--更新されていない場合は更新日時を表示しない-->
+    {% if detail_query.modified_dt != None %}
+        <p>最終更新日時{{ detail_query.modified_dt|date:'Y-m-d　H時i分s秒' }}</p>
+    {% endif %}
+    </div>
+    <div class="text-danger mt-5">
+        <form action="" method="POST">
+            {% csrf_token %}
+            本当にこの情報を削除しますか？　<input type="submit" value="削除する" class="btn btn-outline-danger">
+        </form>
+    </div>
+</div>
+{% endblock content %}

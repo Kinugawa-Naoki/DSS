@@ -9,29 +9,33 @@
 
 {% block content %}
 <div class="container">
-    {% for item in list_query %}
-    <div class="mt-5">
-        <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ item.deliverable_name }}</h5>
-              <a href="#" class="btn btn-primary">詳細画面</a>
+    <div class="text-right mt-5">
+        <a class="btn btn-info" href="{% url 'create' %}" role="button">成果物情報を登録する</a>
+    </div>
+    {% if list_query == 'None' %}
+        <div class="mt-5">
+            <div class="card">
+                <div class="card-body">
+                <b class="text-danger">成果物が登録されていません。<br>右上の登録ボタンから成果物を登録してください。</b>
+                </div>
             </div>
         </div>
-    </div>
-    {% endfor %}
+    {% else %}
+        {% for item in list_query %}
+        <div class="mt-5">
+            <div class="card">
+                <div class="card-body">
+                <h4 class="card-title text-secondary">{{forloop.counter}}. {{ item.deliverable_name }}</h5>
+                <a href="{% url 'deliverable_detail' item.pk %}" class="btn btn-outline-info">詳細情報</a>
+                <a href="{% url 'deliverable_update' item.pk %}" class="btn btn-outline-success mx-3">編集</a>
+                <a href="{% url 'deliverable_delete' item.pk %}" class="btn btn-outline-danger">削除</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock content %}
 
 
 
-<!--
-    まだ作成途中
-            <div class="mt-5">
-            <p>{{ item.deliverable_name }}</p>
-            <p>{{ item.git_url }}</p>
-            <p>{{ item.category }}</p>
-            <p>{{ item.languages }}</p>
-            <p>{{ item.own_comment }}</p>
-            <p>{{ item.created_dt }}</p>
-        </div>
--->

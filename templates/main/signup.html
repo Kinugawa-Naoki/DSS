@@ -19,7 +19,8 @@
                     <p class="text-danger">{{ ID_Error }}</p>
                 </div>
                 {{ forms.user_pass.label }}
-                {{ forms.user_pass }}
+                {{ forms.user_pass }}<br>
+                {{ forms.agree_terms }}　<a href="{% url 'terms' %}">利用規約に同意します</a>
                 <div class="text-center mt-3">
                     <input type="submit" class="btn btn-outline-success" width="200" value="ユーザー登録する">
                 </div>

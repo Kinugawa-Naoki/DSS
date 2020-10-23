@@ -6,12 +6,16 @@
     {% if message == 'ログアウト'%}
     <!--　5秒待機してからログインページへ　-->
     <meta http-equiv="Refresh" content="5;URL={% url 'login' %}">
-    {% endif %}
 
     <!--　ユーザー登録　-->
-    {% if message == 'ユーザー登録'%}
+    {% elif message == 'ユーザー登録'%}
     <!--　10秒待機してからログインページへ　-->
     <meta http-equiv="Refresh" content="10;URL={% url 'login' %}">
+
+    <!--　成果物の登録　-->
+    {% elif message == '作成' or message == '更新' or message == 'の削除'%}
+    <!--　5秒待機してからログインページへ　-->
+    <meta http-equiv="Refresh" content="5;URL={% url 'deliverable_list' %}">
     {% endif %}
 {% endblock head %}
 
@@ -21,19 +25,25 @@
 {% block content %}
 <div class="container">
     <div class="alert alert-info" role="alert">
-        <h2>"{{ message }}"　が完了しました。</h2>
+        <h2>"{{ delete_name }}{{ message }}"　が完了しました。</h2>
     </div>
     <hr>
     <!--　ユーザー登録時　-->
     {% if message == 'ユーザー登録' %}
         <p>ユーザー登録していただきありがとうございます</p>
         <p>10秒後にログインページに自動的にジャンプします。</p>
-    {% endif %}
-    <!--　ログアウト時　-->
-    {% if message == 'ログアウト' %}
-        <p>5秒後にログインページに自動的にジャンプします。</p>
-    {% endif %}
         <p>ページが切り替わらない場合は、<a href="{% url 'login' %}">ここをクリック</a>してください。</p>
+
+    <!--　ログアウト時　-->
+    {% elif message == 'ログアウト' %}
+        <p>5秒後にログインページに自動的にジャンプします。</p>
+        <p>ページが切り替わらない場合は、<a href="{% url 'login' %}">ここをクリック</a>してください。</p>
+
+    <!--　成果物登録時　-->
+    {% elif message == '作成' or message == '更新' or message == 'の削除' %}
+        <p>5秒後にログインページに自動的にジャンプします。</p>
+        <p>ページが切り替わらない場合は、<a href="{% url 'deliverable_list' %}">ここをクリック</a>してください。</p>
+    {% endif %}
     <hr>
 </div>
 {% endblock content %}

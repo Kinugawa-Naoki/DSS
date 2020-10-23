@@ -1,5 +1,6 @@
+from django.http import request
 from django.shortcuts import redirect, render
-from .forms import SignupLoginForm
+from .forms import SignupForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -7,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 # サインアップ
 def signupfunc(request):
-    forms = SignupLoginForm()
+    forms = SignupForm()
     if request.method == 'POST':
         user_id = request.POST['user_id']
         user_pass = request.POST['user_pass']
@@ -22,9 +23,13 @@ def signupfunc(request):
     else:
         return render(request, 'signup.html', {'forms':forms})
 
+# 利用規約
+def termsfunc(request):
+    return render(request, 'terms.html', {'terms':''})
+
 # ログイン画面
 def loginfunc(request):
-    forms = SignupLoginForm()
+    forms = LoginForm()
     if request.method == 'POST':
         user_id = request.POST['user_id']
         user_pass = request.POST['user_pass']
@@ -34,7 +39,7 @@ def loginfunc(request):
             login(request, user)
             return redirect('deliverable_list')
         else:
-            return render(request, 'login.html', {'error':'ログインに失敗しました。', 'forms':forms})
+            return render(request, 'login.html', {'error_message':'ログインに失敗しました。', 'forms':forms})
     else:
         return render(request, 'login.html', {'forms':forms})
 

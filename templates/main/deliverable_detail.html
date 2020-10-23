@@ -12,17 +12,49 @@
     <div class="alert alert-success" role="alert">
         {{ detail_query.deliverable_name }} 詳細情報
     </div>
-    <div class="container">
-    <p>{{ detail_query.deliverable_name }}</p>
-    <p>{{ detail_query.git_url }}</p>
-    <p>{{ detail_query.category }}</p>
-    <p>{{ detail_query.languages }}</p>
-    <p>{{ detail_query.own_comment }}</p>
-    <p>{{ detail_query.created_dt }}</p>
+    <p>成果物名：{{ detail_query.deliverable_name }}</p>
+    <p>Git URL：{{ detail_query.git_url }}</p>
+    <p>カテゴリー：{{ detail_query.category }}</p>
+    <p>使用言語：{{ detail_query.languages }}</p>
+    <p>追記情報：{{ detail_query.own_comment }}</p>
+    <p>作成日時：{{ detail_query.created_dt|date:'Y-m-d　H時i分s秒' }}</p>
     <!--更新されていない場合は更新日時を表示しない-->
-    {% if detail_query.modified_dt == 'None' %}
-        <p>{{ detail_query.modified_dt }}</p>
+    {% if detail_query.modified_dt != None %}
+        <p>最終更新日時：{{ detail_query.modified_dt|date:'Y-m-d　H時i分s秒' }}</p>
+    {% elif detail_query.non_display != None %}
+        <p>公開する：{{ detail_query.non_display }}</p>
     {% endif %}
+
+    <!--　コメント一覧　-->
+    <div class="mt-5">
+        <div class="alert alert-dark">
+            <h5>コメント一覧</h5>
+        </div>
     </div>
+    {% if request.user.is_authenticated %}
+        <!--　コメント投稿　-->
+        <div class="mt-5">
+            <div class="alert alert-dark">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% for item in comment_form %}
+                        <div class="mb-3">
+                            {{ item.label }}
+                        </div>
+                        {{ item }}
+                    {% endfor %}
+                    <div class="text-center mt-3">
+                        <input type="submit" class="btn btn-outline-dark" value="コメントする">
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="mt-5">
+            <div class="alert alert-dark">
+                コメント機能は会員限定機能です。
+            </div>
+        </div>
+    {% endif %}
 </div>
 {% endblock content %}

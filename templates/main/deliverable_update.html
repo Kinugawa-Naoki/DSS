@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ deliverable_name }}更新画面</title>
+{% endblock head %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="alert alert-success" role="alert">
+            "{{ deliverable_name }}" 　情報更新画面
+        </div>
+        <p class="text-danger">更新ボタンを押すまで更新されません</p>
+        <p>成果物名：{{ form.deliverable_name }}</p>
+        <p>Git URL：{{ form.git_url }}</p>
+        <p>カテゴリー：{{ form.category }}</p>
+        <p>使用言語：{{ form.languages }}</p>
+        <p>追記情報：{{ form.own_comment }}</p>
+        {{ form.created_dt }}
+        <div class="mt-3">
+            <input type="submit" class="btn btn-secondary" value="更新する">
+        </div>
+    </form>
+</div>
+{% endblock content %}
