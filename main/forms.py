@@ -1,5 +1,4 @@
 from django import forms
-from datetime import datetime
 
 class CreateDeliverableInfo(forms.Form):
     deliverable_name = forms.CharField(
