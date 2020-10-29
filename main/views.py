@@ -63,7 +63,7 @@ def createfunc(request):
 
 # 成果物の一覧リストを見る
 def deliverable_listfunc(request):
-    user_id = request.user
+    user_id = request.user()
     list_query = DeliverableInfo.objects.filter(user_id__iexact=user_id).all()
     list_query_counter = DeliverableInfo.objects.filter(user_id__iexact=user_id).count()
     if list_query_counter == 0:
