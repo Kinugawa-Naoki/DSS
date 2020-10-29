@@ -63,11 +63,14 @@ def createfunc(request):
 # 成果物の一覧リストを見る
 def deliverable_listfunc(request):
     user_id = request.user
-    list_query = DeliverableInfo.objects.filter(user_id__iexact=user_id).all()
-    list_query_counter = DeliverableInfo.objects.filter(user_id__iexact=user_id).count()
-    if list_query_counter == 0:
-        list_query = 'None'
-    return render(request, 'deliverable_list.html', {'list_query':list_query})
+    try:
+        list_query = DeliverableInfo.objects.filter(user_id__iexact=user_id).all()
+        list_query_counter = DeliverableInfo.objects.filter(user_id__iexact=user_id).count()
+        if list_query_counter == 0:
+            list_query = 'None'
+        return render(request, 'deliverable_list.html', {'list_query':list_query})
+    except:
+        redirect('index')
 
 # 成果物を更新する
 def deliverable_updatefunc(request, pk):
