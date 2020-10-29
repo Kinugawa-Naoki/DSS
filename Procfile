@@ -1,0 +1,1 @@
+web: gunicorn seikabutsu.wsgi --log-file -
