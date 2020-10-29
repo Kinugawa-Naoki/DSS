@@ -137,4 +137,5 @@ AUTHENTICATION_BACKENDS = {
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+SECRET_KEY = os.environ['SECRET_KEY']
 django_heroku.settings(locals())
