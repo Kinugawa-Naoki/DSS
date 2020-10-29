@@ -5,6 +5,13 @@
 {% endblock head %}
 
 {% block header %}
+<div class="m-3">
+    {% if user.is_authenticated %}
+            <a href="{% url 'deliverable_list' %}">リストに戻る</a>
+    {% else %}
+            <a href="{% url 'deliverable_list' %}">リストに戻る</a>
+    {% endif %}
+</div>
 {% endblock header %}
 
 {% block content %}

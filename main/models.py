@@ -1,6 +1,4 @@
 from django.db import models
-from django.db.models.deletion import CASCADE
-from django.db.models.fields import CharField
 from django.db.models.fields.related import ForeignKey
 from django.utils import timezone
 
@@ -16,7 +14,14 @@ class DeliverableInfo(models.Model):
     non_display = models.CharField(max_length=6, null=True, blank=True)
     created_dt = models.DateTimeField(default=timezone.now)
     modified_dt = models.DateTimeField(null=True, blank=True)
+    # 評価項目
+    # いいね数
+    good_num = models.IntegerField(default=0)
+    # いいねした人のID
     good = models.TextField(null=True, blank=True)
+    # コメント数
+    comment_num = models.IntegerField(default=0)
+    
     def __str__(self):
         return self.deliverable_name
 
@@ -24,3 +29,6 @@ class PablicComment(models.Model):
     deliverable_id = ForeignKey(DeliverableInfo, to_field='id', on_delete=models.CASCADE)
     post_user_id = models.CharField(max_length=100)
     comment = models.TextField(max_length=140)
+    
+    def __str__(self):
+        return self.comment

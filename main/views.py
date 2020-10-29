@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.utils.timezone import deactivate
 from .forms import Comment, CreateDeliverableInfo
 from .models import DeliverableInfo, PablicComment
 from datetime import datetime
@@ -21,13 +22,14 @@ def deliverable_detailfunc(request, pk):
         comment_model.save()
         redirect_path = '/deliverable_detail/' + str(pk)
         return redirect(redirect_path)
-
     else:
         try:
-            detail_query = DeliverableInfo.objects.get(pk=pk)
-            return render(request, 'deliverable_detail.html', {'detail_query':detail_query, 'comment_form':form})
+            detail_query = DeliverableInfo.objects.get(id=pk)
+            comment_query = PablicComment.objects.filter(deliverable_id__id__iexact=pk).all()
+            return render(request, 'deliverable_detail.html', {'detail_query':detail_query, 'comment_query':comment_query, 'comment_form':form})
         except:
-            return redirect('deliverable_list')
+            return redirect('deliverable_detail')
+
 
 # ここからログインが必要
 # 成果物情報登録

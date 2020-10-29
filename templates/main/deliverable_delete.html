@@ -5,6 +5,13 @@
 {% endblock head %}
 
 {% block header %}
+<div class="m-3">
+    {% if user.is_authenticated %}
+            <a href="{% url 'deliverable_list' %}">リストに戻る</a>
+    {% else %}
+            <a href="{% url 'deliverable_list' %}">リストに戻る</a>
+    {% endif %}
+</div>
 {% endblock header %}
 
 {% block content %}
@@ -21,7 +28,7 @@
     <p>作成日時：{{ detail_query.created_dt|date:'Y-m-d　H時i分s秒' }}</p>
     <!--更新されていない場合は更新日時を表示しない-->
     {% if detail_query.modified_dt != None %}
-        <p>最終更新日時{{ detail_query.modified_dt|date:'Y-m-d　H時i分s秒' }}</p>
+        <p>最終更新日時：{{ detail_query.modified_dt|date:'Y-m-d　H時i分s秒' }}</p>
     {% endif %}
     </div>
     <div class="text-danger mt-5">

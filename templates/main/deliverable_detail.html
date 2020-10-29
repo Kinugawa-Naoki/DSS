@@ -5,10 +5,18 @@
 {% endblock head %}
 
 {% block header %}
+<div class="m-3">
+    {% if user.is_authenticated %}
+            <a href="{% url 'deliverable_list' %}">リストに戻る</a>
+    {% else %}
+            <a href="{% url 'deliverable_list' %}">リストに戻る</a>
+    {% endif %}
+</div>
 {% endblock header %}
 
 {% block content %}
 <div class="container">
+    <!--　詳細情報　-->
     <div class="alert alert-success" role="alert">
         {{ detail_query.deliverable_name }} 詳細情報
     </div>
@@ -21,20 +29,32 @@
     <!--更新されていない場合は更新日時を表示しない-->
     {% if detail_query.modified_dt != None %}
         <p>最終更新日時：{{ detail_query.modified_dt|date:'Y-m-d　H時i分s秒' }}</p>
-    {% elif detail_query.non_display != None %}
-        <p>公開する：{{ detail_query.non_display }}</p>
+    {% endif %}
+    {% if detail_query.non_display != None %}
+        <p>公開設定：公開しない</p>
+    {% else %}
+        <p>公開設定：公開する</p>
     {% endif %}
 
     <!--　コメント一覧　-->
     <div class="mt-5">
-        <div class="alert alert-dark">
+        <div class="alert alert-secondary">
             <h5>コメント一覧</h5>
+            <div class="mt-3">
+                {% for item in comment_query %}
+                    <div class="alert alert-dark">
+                        >>{{ forloop.counter }}<br>
+                        投稿者：{{ item.post_user_id }}<br>
+                        コメント：{{ item.comment }}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
     {% if request.user.is_authenticated %}
         <!--　コメント投稿　-->
         <div class="mt-5">
-            <div class="alert alert-dark">
+            <div class="alert alert-secondary">
                 <form action="" method="POST">
                     {% csrf_token %}
                     {% for item in comment_form %}
@@ -51,7 +71,7 @@
         </div>
     {% else %}
         <div class="mt-5">
-            <div class="alert alert-dark">
+            <div class="alert alert-danger">
                 コメント機能は会員限定機能です。
             </div>
         </div>
