@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '6ad^o6vxquwirhz)p^0mdaihseo8(22jky$(*z+^6)xp=1yv=*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -123,9 +123,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
-)
+]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -136,10 +136,4 @@ AUTHENTICATION_BACKENDS = {
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
-if not DEBUG:
-    import django_heroku
-    django_heroku.settings(locals())
+django_heroku.settings(locals())
