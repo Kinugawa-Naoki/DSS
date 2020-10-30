@@ -35,5 +35,38 @@
     {% else %}
         <p>公開設定：公開する</p>
     {% endif %}
+
+    
+    <!--　コメント一覧　-->
+    <div class="mt-5">
+        <div class="alert alert-dark">
+            <h5>コメント一覧</h5>
+        </div>
+    </div>
+    {% if request.user.is_authenticated %}
+        <!--　コメント投稿　-->
+        <div class="mt-5">
+            <div class="alert alert-dark">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% for item in comment_form %}
+                        <div class="mb-3">
+                            {{ item.label }}
+                        </div>
+                        
+                    {% endfor %}
+                    <div class="text-center mt-3">
+                        <input type="submit" class="btn btn-outline-dark" value="コメントする">
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="mt-5">
+            <div class="alert alert-dark">
+                コメント機能は会員限定機能です。
+            </div>
+        </div>
+    {% endif %}
 </div>
 {% endblock content %}
