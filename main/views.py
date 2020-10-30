@@ -86,7 +86,7 @@ def deliverable_updatefunc(request, pk):
             languages = languages + language + ', '
         
         #　成果物情報の上書き
-        model_query = DeliverableInfo.objects.filter(user_id__iexact=user_id).get(pk=pk)
+        model_query = DeliverableInfo.objects.filter(user_id=user_id).get(pk=pk)
         model_query.deliverable_name = request.POST['deliverable_name']
         model_query.git_url = request.POST['git_url']
         model_query.category = request.POST['category']
@@ -98,7 +98,7 @@ def deliverable_updatefunc(request, pk):
     
     else:
         try:
-            detail_query = DeliverableInfo.objects.filter(user_id__iexact=user_id).get(pk=pk)
+            detail_query = DeliverableInfo.objects.filter(user_id=user_id).get(pk=pk)
             # 成果物名のみ取り出し
             deliverable_name = detail_query.deliverable_name
             # 登録済みの使用言語取り出し・初期値代入用辞書作成
@@ -121,13 +121,13 @@ def deliverable_updatefunc(request, pk):
 def deliverable_deletefunc(request, pk):
     user_id = request.user
     if request.method == 'POST':
-        model = DeliverableInfo.objects.filter(user_id__iexact=user_id).get(pk=pk)
+        model = DeliverableInfo.objects.filter(user_id=user_id).get(pk=pk)
         delete_name = model.deliverable_name
         model.delete()
         return render(request, 'process_success.html', {'delete_name':delete_name, 'message':'の削除'})
     else:
         try:
-            detail_query = DeliverableInfo.objects.filter(user_id__iexact=user_id).get(pk=pk)
+            detail_query = DeliverableInfo.objects.filter(user_id=user_id).get(pk=pk)
             return render(request, 'deliverable_delete.html', {'detail_query':detail_query})
         except:
             return redirect('deliverable_list')
