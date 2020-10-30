@@ -12,7 +12,6 @@ def indexfunc(request):
 # 成果物の詳細情報を見る
 def deliverable_detailfunc(request, pk):
     form = Comment()
-    print('TEST0')
     if request.method == 'POST':
         comment_model = PablicComment(
             deliverable_id = DeliverableInfo.objects.get(pk=pk),
@@ -24,14 +23,13 @@ def deliverable_detailfunc(request, pk):
         return redirect(redirect_path)
     else:
         try:
-            print('TEST1')
             detail_query = DeliverableInfo.objects.get(id=pk)
-            print('TEST2')
-            comment_query = PablicComment.objects.filter(deliverable_id__id__iexact=pk).all()
-            print('TEST3')
-            return render(request, 'deliverable_detail.html', {'detail_query':detail_query, 'comment_query':comment_query, 'comment_form':form})
+            try:
+                comment_query = PablicComment.objects.filter(deliverable_id__id__iexact=pk).all()
+                return render(request, 'deliverable_detail.html', {'detail_query':detail_query, 'comment_query':comment_query, 'comment_form':form})
+            except:
+                return render(request, 'deliverable_detail.html', {'detail_query':detail_query, 'comment_form':form})
         except:
-            print('TEST4')
             return redirect('deliverable_detail')
 
 
