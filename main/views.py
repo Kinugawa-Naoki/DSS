@@ -25,11 +25,9 @@ def deliverable_detailfunc(request, pk):
         try:
             detail_query = DeliverableInfo.objects.get(id=pk)
             try:
-                comment_query = PablicComment.objects.filter(deliverable_id__id__iexact=pk).all()
-                print('TEST1')
+                comment_query = PablicComment.objects.filter(deliverable_id__id=pk).all()
                 return render(request, 'deliverable_detail.html', {'detail_query':detail_query, 'comment_query':comment_query, 'comment_form':form})
             except:
-                print('TEST2')
                 return render(request, 'deliverable_detail.html', {'detail_query':detail_query, 'comment_form':form})
         except:
             return redirect('deliverable_detail')
