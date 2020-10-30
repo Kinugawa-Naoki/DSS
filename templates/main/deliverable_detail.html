@@ -44,7 +44,7 @@
                 {% for item in comment_query %}
                     <div class="alert alert-dark">
                         >>{{ forloop.counter }}<br>
-                        投稿者：{{ item.post_user_id }}<br>
+                        投稿者：<br>
                         コメント：{{ item.comment }}
                     </div>
                 {% endfor %}
