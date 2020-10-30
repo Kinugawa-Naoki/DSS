@@ -27,9 +27,9 @@
                 <div class="card-body">
                 <h4 class="card-title text-secondary">{{forloop.counter}}. "{{ item.deliverable_name }}"</h5>
                     <div class="original-ccs-card">
-                    <a href="{% url 'deliverable_detail' item.pk %}" class="btn btn-outline-info">詳細情報</a>
-                    <a href="{% url 'deliverable_update' item.pk %}" class="btn btn-outline-success mx-3">編集</a>
-                    <a href="{% url 'deliverable_delete' item.pk %}" class="btn btn-outline-danger">削除</a>
+                        <div><a href="{% url 'deliverable_detail' item.pk %}" class="btn btn-outline-info">詳細情報</a></div>
+                        <div><a href="{% url 'deliverable_update' item.pk %}" class="btn btn-outline-success mx-3">編集</a></div>
+                        <div><a href="{% url 'deliverable_delete' item.pk %}" class="btn btn-outline-danger">削除</a></div>
                     </div>
                 </div>
             </div>
