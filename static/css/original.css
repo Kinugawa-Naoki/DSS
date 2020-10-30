@@ -1,3 +1,4 @@
 .original-css-card{
     display: inline-block;
+    width: max-content;
 }
