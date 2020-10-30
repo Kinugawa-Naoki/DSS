@@ -71,8 +71,10 @@ def deliverable_listfunc(request):
         list_query_counter = DeliverableInfo.objects.filter(user_id__iexact=user_id).count()
         if list_query_counter == 0:
             list_query = 'None'
+        print('TEST1')
         return render(request, 'deliverable_list.html', {'list_query':list_query})
     except:
+        print('TEST2')
         redirect('index')
 
 # 成果物を更新する
