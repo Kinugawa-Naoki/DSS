@@ -130,7 +130,3 @@ def deliverable_deletefunc(request, pk):
             return render(request, 'deliverable_delete.html', {'detail_query':detail_query})
         except:
             return redirect('deliverable_list')
-
-
-def add_comment(request):
-    return 
