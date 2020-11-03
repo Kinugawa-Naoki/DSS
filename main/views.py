@@ -57,7 +57,6 @@ def createfunc(request):
             created_dt = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S'),
             non_display = request.POST.get('non_display')
         )
-        print(request.POST)
         models.save()
         return render(request, 'process_success.html', {'message':'作成'})
     else:
