@@ -28,6 +28,6 @@ HTML/CSS
 BootStrap4  
 
 ## 学習歴
-Python・Django・BootStrap : 6ヶ月  
+Python・Django・BootStrap : 約1年 
 HTML/CSS : 小学生時代より学習（中学・高校ではPCが身近に無かったため学習しなかった）  
 ※大学ではプログラミングの授業を履修していないため，書籍・Webのみの独学で勉強した。
