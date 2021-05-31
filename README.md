@@ -1,5 +1,4 @@
 # DSS(Deliverable Share System)　⇒　成果物共有サイト
-※このWebアプリは，22卒就活用に作成した成果物です。  
   
 ## App URL
 URL：https://deliverable-share-system.herokuapp.com/  
